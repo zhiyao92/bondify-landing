@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bondify — Relationship Habits</title>
+  <meta name="description" content="Bondify keeps the people who matter from drifting. Add your partner, your dad, your oldest friend — and get something worth saying, guided plans for when something's wrong, and the memories worth keeping." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://zhiyao92.github.io/bondify-landing/" />
+  <meta property="og:title" content="Bondify — Relationship Habits" />
+  <meta property="og:description" content="Talk, repair, stay close. For partners, parents, siblings and friends." />
+  <meta property="og:image" content="https://zhiyao92.github.io/bondify-landing/app-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://zhiyao92.github.io/bondify-landing/app-icon.png" />
+  <link rel="icon" href="app-icon.png" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --indigo: #5B3FD8;
+      --indigo-deep: #3B2A8C;
+      --indigo-bg: #F1EFFE;
+      --coral: #FF7B62;
+      --peach: #FFB067;
+      --coral-bg: #FFF1ED;
+      --bg: #FBFAFF;
+      --surface: #FFFFFF;
+      --surface2: #F5F3FB;
+      --border: #E7E3F3;
+      --text: #171235;
+      --muted: #6B6588;
+      --soft: #A9A3C2;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 32px;
+      background: rgba(251,250,255,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo img { width: 32px; height: 32px; border-radius: 9px; }
+    .nav-logo span { font-weight: 800; font-size: 1.05rem; color: var(--text); letter-spacing: -0.4px; }
+    .nav-cta {
+      background: var(--text); color: #fff; font-weight: 700; font-size: 0.85rem;
+      padding: 9px 20px; border-radius: 100px; text-decoration: none;
+      transition: opacity .2s, transform .2s;
+    }
+    .nav-cta:hover { opacity: .85; transform: scale(1.03); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 150px 24px 72px;
+      text-align: center;
+      background:
+        radial-gradient(900px 420px at 50% -10%, rgba(91,63,216,.16), transparent 70%),
+        linear-gradient(180deg, #FFFFFF 0%, var(--bg) 100%);
+    }
+    .hero-icon {
+      width: 96px; height: 96px; border-radius: 24px; margin: 0 auto 26px;
+      box-shadow: 0 18px 40px rgba(59,42,140,.28);
+      display: block;
+    }
+    .hero h1 {
+      font-size: clamp(2.3rem, 6vw, 3.9rem);
+      line-height: 1.08; letter-spacing: -2px; font-weight: 800;
+      max-width: 15ch; margin: 0 auto 20px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(120deg, var(--coral), var(--peach));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero p.sub {
+      font-size: clamp(1.02rem, 2.2vw, 1.2rem);
+      color: var(--muted); max-width: 54ch; margin: 0 auto 34px;
+    }
+    .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: linear-gradient(120deg, var(--indigo), #7A5BF0);
+      color: #fff; font-weight: 700; font-size: 1rem;
+      padding: 15px 30px; border-radius: 100px; text-decoration: none;
+      box-shadow: 0 10px 28px rgba(91,63,216,.32);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(91,63,216,.4); }
+    .btn-ghost {
+      display: inline-flex; align-items: center;
+      color: var(--text); font-weight: 600; font-size: 1rem;
+      padding: 15px 26px; border-radius: 100px; text-decoration: none;
+      border: 1px solid var(--border); background: var(--surface);
+      transition: border-color .2s;
+    }
+    .btn-ghost:hover { border-color: var(--soft); }
+    .hero-note { margin-top: 18px; font-size: .86rem; color: var(--soft); }
+
+    /* ── STATS ── */
+    .stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 18px; overflow: hidden;
+      margin: 56px auto 0;
+    }
+    .stat { background: var(--surface); padding: 24px 16px; text-align: center; }
+    .stat .n {
+      font-size: 1.7rem; font-weight: 800; letter-spacing: -1px;
+      background: linear-gradient(120deg, var(--indigo), var(--coral));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .stat .l { font-size: .82rem; color: var(--muted); }
+
+    /* ── SECTIONS ── */
+    section { padding: 84px 0; }
+    .eyebrow {
+      text-transform: uppercase; letter-spacing: 2px; font-size: .74rem;
+      font-weight: 800; color: var(--indigo); margin-bottom: 12px;
+    }
+    h2 {
+      font-size: clamp(1.7rem, 4vw, 2.5rem); line-height: 1.15;
+      letter-spacing: -1.2px; font-weight: 800; margin-bottom: 14px;
+    }
+    .lede { color: var(--muted); max-width: 58ch; font-size: 1.04rem; }
+    .section-head { margin-bottom: 44px; }
+    .section-head.center { text-align: center; }
+    .section-head.center .lede { margin: 0 auto; }
+
+    /* ── WHO IT'S FOR ── */
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .chip {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 100px; padding: 10px 18px; font-size: .93rem; color: var(--text);
+    }
+    .chip span { color: var(--soft); }
+
+    /* ── FEATURES ── */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 26px;
+    }
+    .card .ico {
+      width: 42px; height: 42px; border-radius: 12px; margin-bottom: 16px;
+      display: grid; place-items: center; font-size: 1.15rem;
+      background: var(--indigo-bg);
+    }
+    .card.coral .ico { background: var(--coral-bg); }
+    .card h3 { font-size: 1.06rem; font-weight: 750; margin-bottom: 7px; letter-spacing: -.3px; }
+    .card p { color: var(--muted); font-size: .95rem; }
+
+    /* ── SCREENS ── */
+    .screens { background: linear-gradient(180deg, var(--surface2), var(--bg)); }
+    .shots {
+      display: flex; gap: 20px; overflow-x: auto; padding: 8px 4px 24px;
+      scroll-snap-type: x mandatory;
+    }
+    .shot { flex: 0 0 232px; scroll-snap-align: center; text-align: center; }
+    .shot img {
+      width: 100%; border-radius: 26px; display: block;
+      border: 1px solid var(--border);
+      box-shadow: 0 16px 40px rgba(59,42,140,.14);
+    }
+    .shot figcaption { margin-top: 12px; font-size: .86rem; color: var(--muted); }
+
+    /* ── PATHS ── */
+    .paths { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+    .path {
+      background: var(--surface); border: 1px solid var(--border);
+      border-left: 3px solid var(--coral);
+      border-radius: 14px; padding: 16px 18px;
+    }
+    .path b { display: block; font-size: .97rem; font-weight: 700; margin-bottom: 4px; }
+    .path span { font-size: .88rem; color: var(--muted); }
+
+    /* ── PRICING ── */
+    .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+    .plan { background: var(--surface); border: 1px solid var(--border); border-radius: 22px; padding: 30px; }
+    .plan.pro {
+      border-color: transparent;
+      background: linear-gradient(150deg, var(--indigo-deep), var(--indigo));
+      color: #fff;
+    }
+    .plan h3 { font-size: 1.25rem; font-weight: 800; letter-spacing: -.4px; margin-bottom: 4px; }
+    .plan .kicker { font-size: .9rem; color: var(--muted); margin-bottom: 20px; }
+    .plan.pro .kicker { color: rgba(255,255,255,.72); }
+    .plan ul { list-style: none; display: grid; gap: 11px; }
+    .plan li { font-size: .95rem; padding-left: 26px; position: relative; }
+    .plan li::before {
+      content: "✓"; position: absolute; left: 0; top: 0;
+      color: var(--indigo); font-weight: 800;
+    }
+    .plan.pro li::before { color: var(--peach); }
+
+    /* ── PRIVACY ── */
+    .privacy {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 22px; padding: 34px; text-align: center;
+    }
+    .privacy h2 { font-size: 1.5rem; }
+    .privacy p { color: var(--muted); max-width: 56ch; margin: 0 auto; }
+
+    /* ── FINAL CTA ── */
+    .final {
+      text-align: center; color: #fff;
+      background:
+        radial-gradient(700px 300px at 50% 0%, rgba(255,123,98,.35), transparent 70%),
+        linear-gradient(150deg, var(--indigo-deep), var(--indigo));
+      border-radius: 28px; padding: 64px 28px; margin: 0 0 84px;
+    }
+    .final h2 { color: #fff; }
+    .final p { color: rgba(255,255,255,.8); max-width: 46ch; margin: 0 auto 28px; }
+    .final .btn-primary {
+      background: #fff; color: var(--indigo-deep); box-shadow: 0 10px 28px rgba(0,0,0,.22);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border); padding: 32px 0 44px;
+      font-size: .88rem; color: var(--muted);
+      display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+    .foot-links { display: flex; gap: 18px; flex-wrap: wrap; }
+
+    @media (max-width: 720px) {
+      nav { padding: 12px 18px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      section { padding: 60px 0; }
+      .final { border-radius: 22px; padding: 48px 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="#top">
+      <img src="app-icon.png" alt="Bondify app icon" />
+      <span>Bondify</span>
+    </a>
+    <a class="nav-cta" href="https://apps.apple.com/app/id6761910667">Download</a>
+  </nav>
+
+  <header class="hero" id="top">
+    <img class="hero-icon" src="app-icon.png" alt="Bondify app icon" />
+    <h1>The people who matter <em>drift quietly</em></h1>
+    <p class="sub">
+      Add your partner, your dad, your sister, the friend you always mean to call.
+      Bondify keeps track of who you haven't spoken to in a while — and gives you
+      something worth saying when you open it.
+    </p>
+    <div class="cta-row">
+      <a class="btn-primary" href="https://apps.apple.com/app/id6761910667">Download on the App Store</a>
+      <a class="btn-ghost" href="#how">See how it works</a>
+    </div>
+    <p class="hero-note">Free to start · iPhone · No feed, no friends list, nothing to post</p>
+
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat"><div class="n">4,000+</div><div class="l">conversation questions</div></div>
+        <div class="stat"><div class="n">23</div><div class="l">guided plans</div></div>
+        <div class="stat"><div class="n">93</div><div class="l">days of material</div></div>
+        <div class="stat"><div class="n">9</div><div class="l">kinds of conversation</div></div>
+      </div>
+    </div>
+  </header>
+
+  <section id="who">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow">Not just couples</p>
+        <h2>A separate relationship with each person</h2>
+        <p class="lede">
+          Each bond moves at its own pace and gets its own kind of conversation.
+          What a father and son get asked is not what a married couple gets asked —
+          and that's enforced, not suggested.
+        </p>
+      </div>
+      <div class="chips">
+        <div class="chip">Partner <span>·</span> together twelve years and out of questions</div>
+        <div class="chip">Dad <span>·</span> the call you keep meaning to make</div>
+        <div class="chip">Sister <span>·</span> you only talk at Christmas</div>
+        <div class="chip">Best friend <span>·</span> three time zones away</div>
+        <div class="chip">Husband &amp; wife</div>
+        <div class="chip">Ageing parents</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">How it works</p>
+        <h2>Talk, repair, stay close</h2>
+        <p class="lede">Three jobs, and the app opens on the one you need today.</p>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <div class="ico">💬</div>
+          <h3>Something to talk about</h3>
+          <p>
+            Over 4,000 questions across nine kinds of conversation, from light to
+            genuinely deep. Bondify picks one that suits the person and the moment,
+            so you're never scrolling a menu looking for a prompt.
+          </p>
+        </div>
+        <div class="card coral">
+          <div class="ico">🛠️</div>
+          <h3>When something is wrong</h3>
+          <p>
+            23 guided plans for the things that actually go wrong between people.
+            A few minutes a day, one small step at a time. Nothing is timed, nothing
+            is locked behind a streak — miss a day and pick it up when you can.
+          </p>
+        </div>
+        <div class="card">
+          <div class="ico">📷</div>
+          <h3>The part you keep</h3>
+          <p>
+            Memories with the story behind them, kept per person. Bondify hands one
+            back to you years later, on the morning it happened.
+          </p>
+        </div>
+        <div class="card coral">
+          <div class="ico">🎁</div>
+          <h3>Wishlist</h3>
+          <p>
+            Note what they mention wanting, the moment they mention it. It's waiting
+            when their birthday comes round.
+          </p>
+        </div>
+        <div class="card">
+          <div class="ico">📅</div>
+          <h3>Together since</h3>
+          <p>
+            The day it started, counted forward. Anniversaries and milestones arrive
+            before you've missed them.
+          </p>
+        </div>
+        <div class="card coral">
+          <div class="ico">📱</div>
+          <h3>On your Home Screen</h3>
+          <p>
+            Widgets for how long you've been together, the next birthday or
+            anniversary, and a photo from your memories that changes each day.
+            Lock Screen complications too.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screens">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow">Inside the app</p>
+        <h2>Three tabs. Opens on Today.</h2>
+      </div>
+      <div class="shots">
+        <figure class="shot">
+          <img src="screenshots/01-today.png" alt="Today tab showing the daily spark" loading="lazy" />
+          <figcaption>Today — one thing worth saying</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="screenshots/02-bonds.png" alt="Bonds tab listing each relationship" loading="lazy" />
+          <figcaption>Bonds — everyone you're keeping warm</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="screenshots/03-bond-detail.png" alt="A single bond's detail screen" loading="lazy" />
+          <figcaption>One person, their own pace</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="screenshots/04-memories.png" alt="Memories grid of photos" loading="lazy" />
+          <figcaption>Memories — and the story behind them</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="screenshots/05-wishlist.png" alt="Wishlist of gift ideas" loading="lazy" />
+          <figcaption>Wishlist — noted the moment they say it</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="screenshots/06-widget.png" alt="Bondify widgets on the Home Screen" loading="lazy" />
+          <figcaption>Widgets on the Home Screen</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Guided plans</p>
+        <h2>For the things you can't fix in one conversation</h2>
+        <p class="lede">A few of the 23 plans, each a handful of days:</p>
+      </div>
+      <div class="paths">
+        <div class="path"><b>The argument you keep having</b><span>The same fight, on repeat</span></div>
+        <div class="path"><b>The 3-day reconnect</b><span>You're fine — you've just gone quiet</span></div>
+        <div class="path"><b>Saying sorry properly</b><span>An apology that never landed</span></div>
+        <div class="path"><b>Money without the fight</b><span>The subject that ends badly</span></div>
+        <div class="path"><b>Breaking a long silence</b><span>Too long to know how to start</span></div>
+        <div class="path"><b>The friend you've drifted from</b><span>Neither of you meant for it to happen</span></div>
+        <div class="path"><b>When one of you shuts down</b><span>One retreats, one pursues</span></div>
+        <div class="path"><b>Rebuilding trust, not just moving on</b><span>Past the papering-over</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow">Pricing</p>
+        <h2>The premise isn't the paywall</h2>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Free</h3>
+          <p class="kicker">Everything you need to start today</p>
+          <ul>
+            <li>Three bonds</li>
+            <li>The daily question</li>
+            <li>Memories, with photos and notes</li>
+            <li>Your whole wishlist</li>
+            <li>Together since, and the widgets</li>
+          </ul>
+        </div>
+        <div class="plan pro">
+          <h3>Bondify+</h3>
+          <p class="kicker">When three people isn't everyone</p>
+          <ul>
+            <li>Unlimited bonds</li>
+            <li>Unlimited memories</li>
+            <li>The full question catalogue</li>
+            <li>Every guided plan</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="privacy">
+        <h2>Nobody else is watching</h2>
+        <p>
+          Bondify doesn't post anything, add friends, or show you other people's
+          relationships. Your memories and notes stay on your device.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="final">
+      <h2>Start with one person</h2>
+      <p>Add the one you've been meaning to call. The rest can wait.</p>
+      <a class="btn-primary" href="https://apps.apple.com/app/id6761910667">Download on the App Store</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <footer>
+      <div>© 2026 Zhi Yao Tan</div>
+      <div class="foot-links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-and-condition.html">Terms</a>
+        <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">EULA</a>
+        <a href="https://apps.apple.com/app/id6761910667">App Store</a>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>
